@@ -1,0 +1,25 @@
+{
+  "name": "nano-ipfs-store",
+  "version": "0.1.0",
+  "description": "Lightweight library to store and get data to/from IPFS",
+  "main": "node-api.js",
+  "browser": "browser-api.js",
+  "dependencies": {
+    "nano-sha256": "^0.1.1",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maiavictor/nano-ipfs-store.git"
+  },
+  "author": "Victor Maia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maiavictor/nano-ipfs-store/issues"
+  },
+  "homepage": "https://github.com/maiavictor/nano-ipfs-store#readme"
+}
