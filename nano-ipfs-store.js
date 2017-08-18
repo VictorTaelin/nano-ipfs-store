@@ -73,7 +73,7 @@ module.exports = function (imports) {
       var options = opts || {};
       var callback = cb || function emptyCallback() {};
 
-      request.onreadystatechange = () => {
+      request.onreadystatechange = function() {
         if (request.readyState === 4 && request.timeout !== 1) {
           if (request.status !== 200) {
             callback(new Error(`[ipfs-mini] status ${request.status}: ${request.responseText}`), null);
