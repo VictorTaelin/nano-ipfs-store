@@ -1,11 +1,11 @@
 {
   "name": "nano-ipfs-store",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Lightweight library to store and get data to/from IPFS",
   "main": "node-api.js",
   "browser": "browser-api.js",
   "dependencies": {
-    "nano-sha256": "^0.1.1",
+    "nano-sha256": "^0.1.2",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {},
