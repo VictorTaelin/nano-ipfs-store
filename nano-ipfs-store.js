@@ -76,7 +76,7 @@ module.exports = function (imports) {
       request.onreadystatechange = function() {
         if (request.readyState === 4 && request.timeout !== 1) {
           if (request.status !== 200) {
-            callback(new Error(`[ipfs-mini] status ${request.status}: ${request.responseText}`), null);
+            callback(new Error("[ipfs-mini] status "+request.status+": "+request.responseText), null);
           } else {
             try {
               callback(null, (options.jsonParse ? JSON.parse(request.responseText) : request.responseText));
@@ -94,7 +94,7 @@ module.exports = function (imports) {
       }
 
       if (options.payload && options.boundary) {
-        request.setRequestHeader('Content-Type', `multipart/form-data; boundary=${options.boundary}`);
+        request.setRequestHeader('Content-Type', "multipart/form-data; boundary="+options.boundary);
         request.send(options.payload);
       } else {
         request.send();
@@ -103,7 +103,7 @@ module.exports = function (imports) {
 
     function createBoundary(data) {
       while (true) {
-        var boundary = `----IPFSMini${Math.random() * 100000}.${Math.random() * 100000}`;
+        var boundary = "----IPFSMini"+(Math.random() * 100000)+"."+(Math.random() * 100000);
         if (data.indexOf(boundary) === -1) {
           return boundary;
         }
@@ -115,12 +115,13 @@ module.exports = function (imports) {
       var string = bytesToString(bytes);
       return new Promise(function(resolve, reject) {
         var boundary = createBoundary(string);
-        var payload = `--${boundary}\r\nContent-Disposition: form-data; name="path"\r\nContent-Type: application/octet-stream\r\n\r\n${string}\r\n--${boundary}--`;
+        var payload = "--"+boundary+'\r\nContent-Disposition: form-data; name="path"\r\nContent-Type: application/octet-stream\r\n\r\n'+string+"\r\n--"+boundary+"--";
         sendAsync({
           jsonParse: true,
           accept: 'application/json',
           uri: '/add?raw-leaves=true&pin=true',
-          payload, boundary,
+          payload: payload,
+          boundary: boundary
         }, function(err, result) {
           err ? reject(err) : resolve(result.Hash);
         });
@@ -135,7 +136,7 @@ module.exports = function (imports) {
     // CID -> Promise String
     function cat(ipfsHash) {
       return new Promise(function(resolve, reject) {
-        sendAsync({uri: `/cat/${ipfsHash}`}, function(err, res) {
+        sendAsync({uri: "/cat/"+ipfsHash}, function(err, res) {
           err ? reject(err) : resolve(res)
         });
       });
